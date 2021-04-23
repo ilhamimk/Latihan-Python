@@ -1,0 +1,26 @@
+import numpy as np
+import pandas as pd
+
+data = pd.read_csv('nilai_mhs.csv')
+print(data)
+print("\n")
+
+
+data['Rata-rata'] = data['Uts']*0.4 + data['Uas']*0.6
+print(data)
+print("\n")
+kondisi = [
+    (data['Rata-rata'] >= 80),
+    (data['Rata-rata'] >= 70),
+    (data['Rata-rata'] >= 60),
+    (data['Rata-rata'] >= 50),
+    (data['Rata-rata'] <= 49)
+]
+
+values = ['A', 'B', 'C', 'D', 'E']
+data['Grade'] = np.select(kondisi, values)
+print(data)
+print("\n")
+
+data.to_csv("Data_nilai_update", index=False)
+print(data)
